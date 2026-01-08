@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JAAS Presentation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -36,9 +37,10 @@
         background: white;
         border-radius: 20px;
         box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        padding: 60px;
+        padding: 40px;
         position: relative;
         animation: slideIn 0.5s ease-out;
+        overflow: hidden;
     }
 
     .slide.active {
@@ -59,27 +61,27 @@
 
     .slide-header {
         border-bottom: 4px solid #667eea;
-        padding-bottom: 20px;
-        margin-bottom: 30px;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
     }
 
     .slide-title {
-        font-size: 2.5em;
+        font-size: 2em;
         color: #2d3748;
         font-weight: 700;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
     }
 
     .slide-subtitle {
-        font-size: 1.2em;
+        font-size: 1em;
         color: #667eea;
         font-weight: 500;
     }
 
     .slide-content {
-        flex: 1;
+        height: calc(100% - 100px);
         overflow-y: auto;
-        padding-right: 20px;
+        padding-right: 15px;
     }
 
     .slide-content::-webkit-scrollbar {
@@ -102,15 +104,15 @@
 
     .content-section h3 {
         color: #667eea;
-        font-size: 1.5em;
-        margin-bottom: 15px;
+        font-size: 1.3em;
+        margin-bottom: 10px;
     }
 
     .content-section p {
         color: #4a5568;
-        line-height: 1.8;
-        font-size: 1.1em;
-        margin-bottom: 15px;
+        line-height: 1.6;
+        font-size: 1em;
+        margin-bottom: 10px;
     }
 
     .bullet-list {
@@ -120,10 +122,10 @@
 
     .bullet-list li {
         color: #4a5568;
-        line-height: 1.8;
-        font-size: 1.1em;
-        margin-bottom: 15px;
-        padding-left: 30px;
+        line-height: 1.6;
+        font-size: 0.95em;
+        margin-bottom: 10px;
+        padding-left: 25px;
         position: relative;
     }
 
@@ -138,37 +140,42 @@
 
     .stats-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-        margin-top: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-top: 15px;
     }
 
     .stat-card {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
-        padding: 25px;
-        border-radius: 15px;
+        padding: 20px;
+        border-radius: 12px;
         text-align: center;
-        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
     }
 
     .stat-number {
-        font-size: 2.5em;
+        font-size: 2em;
         font-weight: 700;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
 
     .stat-label {
-        font-size: 1em;
+        font-size: 0.9em;
         opacity: 0.9;
     }
 
     .highlight-box {
         background: #f7fafc;
         border-left: 5px solid #667eea;
-        padding: 20px;
-        margin: 20px 0;
+        padding: 15px;
+        margin: 15px 0;
         border-radius: 5px;
+    }
+
+    .highlight-box h3 {
+        font-size: 1.2em;
+        margin-bottom: 10px;
     }
 
     .controls {
@@ -244,16 +251,32 @@
 
     .framework-box {
         background: #f7fafc;
-        padding: 20px;
+        padding: 15px;
         border-radius: 10px;
-        margin-bottom: 15px;
+        margin-bottom: 12px;
         border-left: 4px solid #667eea;
     }
 
     .framework-box h4 {
         color: #667eea;
-        margin-bottom: 10px;
-        font-size: 1.2em;
+        margin-bottom: 8px;
+        font-size: 1.1em;
+    }
+
+    .framework-box p {
+        font-size: 0.9em;
+        line-height: 1.5;
+    }
+
+    .chart-container {
+        width: 100%;
+        height: 300px;
+        margin: 20px 0;
+        background: white;
+    }
+
+    canvas {
+        max-height: 100%;
     }
 </style>
 ```
@@ -267,17 +290,20 @@
                 <h1 class="slide-title">AI-Driven Judicial Process in India</h1>
                 <p class="slide-subtitle">Judicial Analysis & Application System (JAAS)</p>
                 <div class="author-info">
-                    <p>Rakunatha Khrishanth Manathra</p>
+                    <p><strong>Author:</strong> Rakunatha Khrishanth Manathra</p>
+                    <p>B.A., LL.B. (HONS.)</p>
                     <p>Saveetha School of Law</p>
+                    <p style="margin-top: 20px;"><strong>Co-Author:</strong> Rini Adiyattil</p>
+                    <p>BBA, LL.B, LL.M - Associate Professor</p>
                 </div>
             </div>
         </div>
 
 ```
-    <!-- Slide 2: Current Crisis -->
+    <!-- Slide 2: Crisis & Data Analysis -->
     <div class="slide">
         <div class="slide-header">
-            <h2 class="slide-title">The Judicial Crisis in India</h2>
+            <h2 class="slide-title">The Judicial Crisis: Data Insights</h2>
         </div>
         <div class="slide-content">
             <div class="stats-grid">
@@ -298,171 +324,136 @@
                     <div class="stat-label">Criminal Cases</div>
                 </div>
             </div>
-            <div class="highlight-box">
-                <h3>Key Challenges</h3>
-                <ul class="bullet-list">
-                    <li>Severe shortage of judges compared to international standards (USA: 130/million, India: 15/million)</li>
-                    <li>Each judge handles approximately 2,000 cases on average</li>
-                    <li>Inadequate infrastructure and resources across court systems</li>
-                    <li>Erosion of public trust in the judicial system</li>
-                </ul>
+            
+            <div class="two-column" style="margin-top: 15px;">
+                <div class="chart-container">
+                    <canvas id="pendencyChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="caseTypeChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Slide 3: Research Objectives -->
+    <!-- Slide 3: Key Findings -->
     <div class="slide">
         <div class="slide-header">
-            <h2 class="slide-title">Research Objectives</h2>
-        </div>
-        <div class="slide-content">
-            <div class="content-section">
-                <ul class="bullet-list">
-                    <li><strong>Identify Inefficiencies:</strong> Conduct comprehensive analysis of current judicial system bottlenecks and systemic challenges</li>
-                    <li><strong>Propose AI-Driven Solution:</strong> Design and develop JAAS specifically tailored for civil case management and resolution</li>
-                    <li><strong>Ensure Compliance:</strong> Maintain ethical standards and legal compliance throughout the AI-driven judicial process</li>
-                    <li><strong>Foster Acceptance:</strong> Build stakeholder engagement and cultural acceptance among judges, lawyers, and the public</li>
-                </ul>
-            </div>
-            <div class="highlight-box">
-                <h3>Ultimate Goal</h3>
-                <p>Create a more efficient, accessible, and equitable justice system that delivers speedy justice for civil cases while maintaining human oversight and accountability.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Slide 4: Key Findings -->
-    <div class="slide">
-        <div class="slide-header">
-            <h2 class="slide-title">Key Research Findings</h2>
+            <h2 class="slide-title">Research Findings & Case Distribution</h2>
         </div>
         <div class="slide-content">
             <div class="two-column">
                 <div>
-                    <h3>Case Distribution</h3>
-                    <ul class="bullet-list">
-                        <li>Criminal cases: 60% of total caseload</li>
-                        <li>Civil cases: 40% of total caseload</li>
-                        <li>Steady increase from 3M (2018) to 4M (2022)</li>
-                    </ul>
-                    
-                    <h3 style="margin-top: 30px;">Disposal Times</h3>
-                    <ul class="bullet-list">
-                        <li>Criminal cases: 18 months average</li>
-                        <li>Civil cases: 12 months average</li>
-                        <li>Family cases: 10 months average</li>
-                    </ul>
+                    <div class="chart-container" style="height: 250px;">
+                        <canvas id="disposalTimeChart"></canvas>
+                    </div>
+                    <div class="highlight-box">
+                        <h3>Gender Disparity</h3>
+                        <ul class="bullet-list">
+                            <li>Male judges: 80%</li>
+                            <li>Female judges: 20%</li>
+                        </ul>
+                    </div>
                 </div>
                 <div>
-                    <h3>Gender & Representation</h3>
-                    <ul class="bullet-list">
-                        <li>Male judges: 80%</li>
-                        <li>Female judges: 20%</li>
-                        <li>Significant gender imbalance requiring intervention</li>
-                    </ul>
-                    
-                    <h3 style="margin-top: 30px;">Alternative Dispute Resolution</h3>
-                    <ul class="bullet-list">
-                        <li>Lok Adalat settlements: 50K (2018) → 70K (2022)</li>
-                        <li>Family case disposal rate: 80%</li>
-                        <li>Growing effectiveness of ADR mechanisms</li>
-                    </ul>
+                    <div class="chart-container" style="height: 250px;">
+                        <canvas id="judgesChart"></canvas>
+                    </div>
+                    <div class="highlight-box">
+                        <h3>ADR Success</h3>
+                        <ul class="bullet-list">
+                            <li>Lok Adalat: 50K → 70K cases</li>
+                            <li>Family cases: 80% disposal rate</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Slide 5: JAAS Solution -->
+    <!-- Slide 4: JAAS Solution -->
     <div class="slide">
         <div class="slide-header">
-            <h2 class="slide-title">Introducing JAAS</h2>
+            <h2 class="slide-title">JAAS: AI-Driven Solution</h2>
             <p class="slide-subtitle">Judicial Analysis & Application System</p>
         </div>
         <div class="slide-content">
-            <div class="content-section">
-                <h3>Core Innovation: Retrieval-Augmented Generation (RAG)</h3>
-                <p>A decentralized AI model that combines machine learning with human oversight to enhance judicial decision-making.</p>
-            </div>
-            
-            <div class="framework-box">
-                <h4>How It Works</h4>
-                <p>RAG retrieves relevant information from an external knowledge base of legal precedents, memorials, and case law while leveraging generative AI capabilities to provide contextually informed recommendations.</p>
-            </div>
-
-            <div class="highlight-box">
-                <h3>Key Features</h3>
-                <ul class="bullet-list">
-                    <li>Automates initial case assessments based on legal memorials</li>
-                    <li>Grounds AI decisions in human-led processes and oversight</li>
-                    <li>Open-source model promoting transparency and collaboration</li>
-                    <li>Minimizes human biases through data-driven analysis</li>
-                    <li>Maintains human accountability in final decision-making</li>
-                </ul>
+            <div class="two-column">
+                <div>
+                    <div class="framework-box">
+                        <h4>Retrieval-Augmented Generation (RAG)</h4>
+                        <p>Combines AI with human oversight by retrieving relevant legal precedents and generating contextually informed recommendations.</p>
+                    </div>
+                    
+                    <div class="framework-box">
+                        <h4>Core Features</h4>
+                        <ul class="bullet-list">
+                            <li>Automates initial case assessments</li>
+                            <li>Human-led oversight & accountability</li>
+                            <li>Open-source transparency</li>
+                            <li>Minimizes human biases</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="chart-container" style="height: 280px;">
+                        <canvas id="impactChart"></canvas>
+                    </div>
+                    <div class="highlight-box">
+                        <h3>Objectives</h3>
+                        <p style="font-size: 0.85em;">Identify inefficiencies, propose AI solutions for civil cases, ensure compliance, and foster stakeholder acceptance.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Slide 6: Benefits -->
+    <!-- Slide 5: Benefits & Implementation -->
     <div class="slide">
         <div class="slide-header">
-            <h2 class="slide-title">Benefits of AI-Driven Judicial System</h2>
+            <h2 class="slide-title">Benefits & Implementation Framework</h2>
         </div>
         <div class="slide-content">
-            <div class="content-section">
-                <div class="framework-box">
-                    <h4>Enhanced Efficiency</h4>
-                    <p>Automates routine tasks like document review and case management, allowing judges to focus on complex legal analysis. Predicts case outcomes based on historical data.</p>
+            <div class="two-column">
+                <div>
+                    <h3 style="color: #667eea; margin-bottom: 10px;">Key Benefits</h3>
+                    <div class="framework-box">
+                        <h4>Enhanced Efficiency</h4>
+                        <p>Automates routine tasks, predicts outcomes, allows judges to focus on complex analysis.</p>
+                    </div>
+                    <div class="framework-box">
+                        <h4>Reduced Biases</h4>
+                        <p>Impartial analysis based on legal merits, reducing discrimination.</p>
+                    </div>
+                    <div class="framework-box">
+                        <h4>Improved Access</h4>
+                        <p>Democratizes legal resources for marginalized communities.</p>
+                    </div>
                 </div>
-
-                <div class="framework-box">
-                    <h4>Reduced Biases</h4>
-                    <p>AI systems analyze data impartially, reducing biases related to race, gender, and socio-economic status. Provides recommendations based solely on legal merits.</p>
-                </div>
-
-                <div class="framework-box">
-                    <h4>Improved Access to Justice</h4>
-                    <p>Democratizes legal resources for marginalized communities through user-friendly interfaces. Empowers citizens who might be intimidated by traditional legal processes.</p>
-                </div>
-
-                <div class="framework-box">
-                    <h4>Transparency & Accountability</h4>
-                    <p>Open-source model ensures transparency in decision-making processes. Maintains human oversight to ensure accountability and ethical standards.</p>
+                <div>
+                    <h3 style="color: #667eea; margin-bottom: 10px;">Implementation</h3>
+                    <div class="framework-box">
+                        <h4>Legal Compliance</h4>
+                        <p>Align with existing laws and regulations.</p>
+                    </div>
+                    <div class="framework-box">
+                        <h4>Ethical Framework</h4>
+                        <p>Uphold transparency, accountability, equity.</p>
+                    </div>
+                    <div class="framework-box">
+                        <h4>Infrastructure Integration</h4>
+                        <p>Seamless integration without disruption.</p>
+                    </div>
+                    <div class="framework-box">
+                        <h4>Cultural Acceptance</h4>
+                        <p>Build trust through training and engagement.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Slide 7: Implementation -->
-    <div class="slide">
-        <div class="slide-header">
-            <h2 class="slide-title">Implementation Considerations</h2>
-        </div>
-        <div class="slide-content">
-            <div class="content-section">
-                <div class="framework-box">
-                    <h4>1. Legal Compliance</h4>
-                    <p>Ensure AI system aligns with existing Indian laws and regulations. Maintain legal integrity while introducing technological innovation.</p>
-                </div>
-
-                <div class="framework-box">
-                    <h4>2. Ethical Framework</h4>
-                    <p>Establish policies to uphold moral standards, transparency, and equity. Address concerns about algorithmic bias and ensure fairness in AI-generated decisions.</p>
-                </div>
-
-                <div class="framework-box">
-                    <h4>3. Infrastructure Integration</h4>
-                    <p>Facilitate seamless integration into current judicial infrastructure without disrupting existing processes. Require detailed applied analysis and pilot programs.</p>
-                </div>
-
-                <div class="framework-box">
-                    <h4>4. Cultural Acceptance</h4>
-                    <p>Build trust among judges, lawyers, and the public. Provide comprehensive training for judicial officers on AI tool usage.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Slide 8: Challenges -->
+    <!-- Slide 6: Challenges -->
     <div class="slide">
         <div class="slide-header">
             <h2 class="slide-title">Challenges & Ethical Considerations</h2>
@@ -470,90 +461,76 @@
         <div class="slide-content">
             <div class="two-column">
                 <div>
-                    <h3>Technical Challenges</h3>
-                    <ul class="bullet-list">
-                        <li>Ensuring data quality and bias-free training datasets</li>
-                        <li>Maintaining system transparency and explainability</li>
-                        <li>Scaling infrastructure across diverse court systems</li>
-                        <li>Regular updates to reflect changing laws</li>
-                    </ul>
+                    <div class="chart-container" style="height: 250px;">
+                        <canvas id="vacanciesChart"></canvas>
+                    </div>
+                    <div class="highlight-box">
+                        <h3>Technical Challenges</h3>
+                        <ul class="bullet-list">
+                            <li>Data quality & bias-free datasets</li>
+                            <li>System transparency</li>
+                            <li>Scaling infrastructure</li>
+                            <li>Regular legal updates</li>
+                        </ul>
+                    </div>
                 </div>
                 <div>
-                    <h3>Ethical & Social Concerns</h3>
-                    <ul class="bullet-list">
-                        <li>Accountability for AI-generated recommendations</li>
-                        <li>Protecting human rights in automated processes</li>
-                        <li>Addressing potential job displacement fears</li>
-                        <li>Maintaining judicial independence</li>
-                    </ul>
+                    <div class="chart-container" style="height: 250px;">
+                        <canvas id="cybercrimeChart"></canvas>
+                    </div>
+                    <div class="highlight-box">
+                        <h3>Ethical Concerns</h3>
+                        <ul class="bullet-list">
+                            <li>AI accountability mechanisms</li>
+                            <li>Human rights protection</li>
+                            <li>Job displacement concerns</li>
+                            <li>Judicial independence</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="highlight-box" style="margin-top: 20px;">
-                <h3>Critical Success Factor</h3>
-                <p>The system must be designed with robust regulatory frameworks and continuous oversight to prevent the perpetuation of existing inequalities while ensuring that AI remains a tool to assist, not replace, human judgment.</p>
-            </div>
         </div>
     </div>
 
-    <!-- Slide 9: Future Impact -->
+    <!-- Slide 7: Conclusion -->
     <div class="slide">
         <div class="slide-header">
-            <h2 class="slide-title">Expected Impact & Future Vision</h2>
+            <h2 class="slide-title">Conclusion & Future Vision</h2>
         </div>
         <div class="slide-content">
-            <div class="content-section">
-                <h3>Immediate Benefits</h3>
-                <ul class="bullet-list">
-                    <li>Significant reduction in case backlog, particularly for civil cases</li>
-                    <li>Faster justice delivery with reduced waiting times</li>
-                    <li>More consistent and predictable legal outcomes</li>
-                    <li>Enhanced accessibility for underrepresented communities</li>
-                </ul>
-            </div>
-
-            <div class="content-section">
-                <h3>Long-term Transformation</h3>
-                <ul class="bullet-list">
-                    <li>Restoration of public confidence in the judicial system</li>
-                    <li>More equitable justice system with reduced human biases</li>
-                    <li>Improved economic environment through efficient contract enforcement</li>
-                    <li>Model for other developing nations facing similar challenges</li>
-                </ul>
-            </div>
-
-            <div class="highlight-box">
-                <h3>Vision Statement</h3>
-                <p>To create a judicial system where justice is not a privilege of the few but a right accessible to all, leveraging technology while maintaining the human touch essential to fair and compassionate legal proceedings.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Slide 10: Conclusion -->
-    <div class="slide">
-        <div class="slide-header">
-            <h2 class="slide-title">Conclusion</h2>
-        </div>
-        <div class="slide-content">
-            <div class="content-section">
-                <p style="font-size: 1.2em; line-height: 2; color: #2d3748;">
-                    The integration of AI through JAAS represents a revolutionary approach to addressing India's judicial crisis. By combining advanced technology with human oversight, this system promises to transform the delivery of justice while maintaining ethical standards and accountability.
-                </p>
-            </div>
-
-            <div class="highlight-box">
-                <h3>Key Takeaways</h3>
-                <ul class="bullet-list">
-                    <li>AI can significantly enhance judicial efficiency without replacing human judgment</li>
-                    <li>RAG technology ensures informed, contextual decision-making</li>
-                    <li>Open-source approach promotes transparency and community trust</li>
-                    <li>Success requires careful attention to legal, ethical, and cultural considerations</li>
-                </ul>
-            </div>
-
-            <div class="content-section" style="margin-top: 30px;">
-                <p style="font-size: 1.2em; color: #667eea; font-weight: 600; text-align: center;">
-                    "Justice delayed is justice denied - let AI help us deliver timely justice for all"
-                </p>
+            <div class="two-column">
+                <div>
+                    <div class="chart-container" style="height: 220px;">
+                        <canvas id="resolutionChart"></canvas>
+                    </div>
+                    <div class="highlight-box">
+                        <h3>Immediate Benefits</h3>
+                        <ul class="bullet-list">
+                            <li>Reduced case backlog</li>
+                            <li>Faster justice delivery</li>
+                            <li>Consistent legal outcomes</li>
+                            <li>Enhanced accessibility</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="highlight-box">
+                        <h3>Long-term Impact</h3>
+                        <ul class="bullet-list">
+                            <li>Restored public confidence</li>
+                            <li>More equitable justice system</li>
+                            <li>Improved economic environment</li>
+                            <li>Model for developing nations</li>
+                        </ul>
+                    </div>
+                    <div class="highlight-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+                        <h3 style="color: white;">Vision</h3>
+                        <p style="color: white; font-size: 0.9em;">Justice as a right accessible to all, leveraging technology while maintaining human compassion and oversight.</p>
+                    </div>
+                    <div style="text-align: center; margin-top: 15px; font-size: 1.1em; color: #667eea; font-weight: 600;">
+                        "Justice delayed is justice denied"
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -561,7 +538,7 @@
     <!-- Controls -->
     <div class="controls">
         <button class="btn" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
-        <span class="slide-number"><span id="currentSlide">1</span> / <span id="totalSlides">10</span></span>
+        <span class="slide-number"><span id="currentSlide">1</span> / <span id="totalSlides">7</span></span>
         <button class="btn" id="nextBtn" onclick="changeSlide(1)">Next →</button>
     </div>
 </div>
@@ -570,8 +547,219 @@
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
     const totalSlides = slides.length;
+    let charts = {};
     
     document.getElementById('totalSlides').textContent = totalSlides;
+    
+    function createCharts() {
+        // Case Pendency Chart
+        const ctxPendency = document.getElementById('pendencyChart');
+        if (ctxPendency) {
+            charts.pendency = new Chart(ctxPendency, {
+                type: 'line',
+                data: {
+                    labels: ['2018', '2019', '2020', '2021', '2022'],
+                    datasets: [{
+                        label: 'Pending Cases (Millions)',
+                        data: [3.0, 3.3, 3.5, 3.8, 4.0],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: true, position: 'top' },
+                        title: { display: true, text: 'Case Pendency Over Years' }
+                    }
+                }
+            });
+        }
+
+        // Case Type Pie Chart
+        const ctxCaseType = document.getElementById('caseTypeChart');
+        if (ctxCaseType) {
+            charts.caseType = new Chart(ctxCaseType, {
+                type: 'pie',
+                data: {
+                    labels: ['Criminal Cases', 'Civil Cases'],
+                    datasets: [{
+                        data: [60, 40],
+                        backgroundColor: ['#667eea', '#764ba2']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: true, position: 'bottom' },
+                        title: { display: true, text: 'Case Distribution' }
+                    }
+                }
+            });
+        }
+
+        // Disposal Time Chart
+        const ctxDisposal = document.getElementById('disposalTimeChart');
+        if (ctxDisposal) {
+            charts.disposal = new Chart(ctxDisposal, {
+                type: 'bar',
+                data: {
+                    labels: ['Criminal', 'Property', 'Civil', 'Family'],
+                    datasets: [{
+                        label: 'Months',
+                        data: [18, 15, 12, 10],
+                        backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#4facfe']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        title: { display: true, text: 'Average Disposal Time' }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, title: { display: true, text: 'Months' } }
+                    }
+                }
+            });
+        }
+
+        // Judges Distribution Chart
+        const ctxJudges = document.getElementById('judgesChart');
+        if (ctxJudges) {
+            charts.judges = new Chart(ctxJudges, {
+                type: 'bar',
+                data: {
+                    labels: ['District Courts', 'High Courts', 'Supreme Court'],
+                    datasets: [{
+                        label: 'Number of Judges',
+                        data: [3000, 1079, 34],
+                        backgroundColor: ['#667eea', '#764ba2', '#f093fb']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        title: { display: true, text: 'Judges by Court Level' }
+                    }
+                }
+            });
+        }
+
+        // Judicial Reform Impact Chart
+        const ctxImpact = document.getElementById('impactChart');
+        if (ctxImpact) {
+            charts.impact = new Chart(ctxImpact, {
+                type: 'line',
+                data: {
+                    labels: ['2018', '2019', '2020', '2021', '2022'],
+                    datasets: [{
+                        label: 'Case Resolution Rate (%)',
+                        data: [60, 65, 70, 75, 80],
+                        borderColor: '#4facfe',
+                        backgroundColor: 'rgba(79, 172, 254, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: true },
+                        title: { display: true, text: 'Impact of Judicial Reforms' }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, max: 100 }
+                    }
+                }
+            });
+        }
+
+        // Judicial Vacancies Chart
+        const ctxVacancies = document.getElementById('vacanciesChart');
+        if (ctxVacancies) {
+            charts.vacancies = new Chart(ctxVacancies, {
+                type: 'line',
+                data: {
+                    labels: ['2018', '2019', '2020', '2021', '2022'],
+                    datasets: [{
+                        label: 'Judicial Vacancies',
+                        data: [400, 450, 500, 550, 600],
+                        borderColor: '#f093fb',
+                        backgroundColor: 'rgba(240, 147, 251, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: true },
+                        title: { display: true, text: 'Judicial Vacancies Over Time' }
+                    }
+                }
+            });
+        }
+
+        // Cybercrime Cases Chart
+        const ctxCybercrime = document.getElementById('cybercrimeChart');
+        if (ctxCybercrime) {
+            charts.cybercrime = new Chart(ctxCybercrime, {
+                type: 'line',
+                data: {
+                    labels: ['2018', '2019', '2020', '2021', '2022'],
+                    datasets: [{
+                        label: 'Cybercrime Cases',
+                        data: [5000, 7500, 10000, 12500, 15000],
+                        borderColor: '#764ba2',
+                        backgroundColor: 'rgba(118, 75, 162, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: true },
+                        title: { display: true, text: 'Trends in Cybercrime Cases' }
+                    }
+                }
+            });
+        }
+
+        // Case Resolution Methods Chart
+        const ctxResolution = document.getElementById('resolutionChart');
+        if (ctxResolution) {
+            charts.resolution = new Chart(ctxResolution, {
+                type: 'pie',
+                data: {
+                    labels: ['Litigation', 'Mediation', 'Lok Adalat', 'Arbitration'],
+                    datasets: [{
+                        data: [50, 30, 10, 10],
+                        backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#4facfe']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: true, position: 'bottom' },
+                        title: { display: true, text: 'Case Resolution Methods' }
+                    }
+                }
+            });
+        }
+    }
     
     function showSlide(n) {
         slides[currentSlide].classList.remove('active');
@@ -589,11 +777,14 @@
     }
     
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') changeSlide(-1);
-        if (e.key === 'ArrowRight') changeSlide(1);
+        if (e.key === 'ArrowLeft' && currentSlide > 0) changeSlide(-1);
+        if (e.key === 'ArrowRight' && currentSlide < totalSlides - 1) changeSlide(1);
     });
     
-    showSlide(0);
+    window.addEventListener('load', () => {
+        createCharts();
+        showSlide(0);
+    });
 </script>
 ```
 
