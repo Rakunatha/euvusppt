@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAAS Presentation</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <title>Be My Valentine? 💝</title>
     <style>
         * {
             margin: 0;
@@ -15,776 +14,247 @@
 
 ```
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Arial', sans-serif;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        overflow: hidden;
-        height: 100vh;
-    }
-
-    .presentation-container {
-        width: 100%;
-        height: 100vh;
+        min-height: 100vh;
         display: flex;
-        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
     }
 
-    .slide {
-        display: none;
-        width: 90%;
-        max-width: 1200px;
-        height: 80vh;
-        margin: auto;
+    .container {
+        text-align: center;
         background: white;
-        border-radius: 20px;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        padding: 40px;
-        position: relative;
-        animation: slideIn 0.5s ease-out;
-        overflow: hidden;
+        padding: 60px 40px;
+        border-radius: 30px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        max-width: 500px;
+        width: 90%;
     }
 
-    .slide.active {
+    h1 {
+        font-size: 2.5em;
+        color: #e74c3c;
+        margin-bottom: 20px;
+        animation: heartbeat 1.5s ease-in-out infinite;
+    }
+
+    .emoji {
+        font-size: 4em;
+        margin: 20px 0;
+    }
+
+    .buttons {
+        margin-top: 40px;
         display: flex;
-        flex-direction: column;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        min-height: 60px;
     }
 
-    @keyframes slideIn {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    button {
+        padding: 15px 40px;
+        font-size: 1.2em;
+        font-weight: bold;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .slide-header {
-        border-bottom: 4px solid #667eea;
-        padding-bottom: 15px;
+    .yes-btn {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+    }
+
+    .yes-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+    }
+
+    .no-btn {
+        background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        color: #333;
+        position: absolute;
+        transition: all 0.3s ease;
+    }
+
+    .celebration {
+        display: none;
+        text-align: center;
+    }
+
+    .celebration h2 {
+        font-size: 2em;
+        color: #e74c3c;
         margin-bottom: 20px;
     }
 
-    .slide-title {
-        font-size: 2em;
-        color: #2d3748;
-        font-weight: 700;
-        margin-bottom: 5px;
+    .celebration .emoji {
+        font-size: 5em;
+        animation: rotate 2s linear infinite;
     }
 
-    .slide-subtitle {
-        font-size: 1em;
-        color: #667eea;
-        font-weight: 500;
+    @keyframes heartbeat {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
     }
 
-    .slide-content {
-        height: calc(100% - 100px);
-        overflow-y: auto;
-        padding-right: 15px;
+    @keyframes rotate {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
     }
 
-    .slide-content::-webkit-scrollbar {
-        width: 8px;
-    }
-
-    .slide-content::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 10px;
-    }
-
-    .slide-content::-webkit-scrollbar-thumb {
-        background: #667eea;
-        border-radius: 10px;
-    }
-
-    .content-section {
-        margin-bottom: 25px;
-    }
-
-    .content-section h3 {
-        color: #667eea;
-        font-size: 1.3em;
-        margin-bottom: 10px;
-    }
-
-    .content-section p {
-        color: #4a5568;
-        line-height: 1.6;
-        font-size: 1em;
-        margin-bottom: 10px;
-    }
-
-    .bullet-list {
-        list-style: none;
-        padding-left: 0;
-    }
-
-    .bullet-list li {
-        color: #4a5568;
-        line-height: 1.6;
-        font-size: 0.95em;
-        margin-bottom: 10px;
-        padding-left: 25px;
-        position: relative;
-    }
-
-    .bullet-list li:before {
-        content: "→";
-        color: #667eea;
-        font-weight: bold;
-        position: absolute;
+    .hearts {
+        position: fixed;
+        top: 0;
         left: 0;
-        font-size: 1.3em;
-    }
-
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 15px;
-        margin-top: 15px;
-    }
-
-    .stat-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 20px;
-        border-radius: 12px;
-        text-align: center;
-        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
-    }
-
-    .stat-number {
-        font-size: 2em;
-        font-weight: 700;
-        margin-bottom: 8px;
-    }
-
-    .stat-label {
-        font-size: 0.9em;
-        opacity: 0.9;
-    }
-
-    .highlight-box {
-        background: #f7fafc;
-        border-left: 5px solid #667eea;
-        padding: 15px;
-        margin: 15px 0;
-        border-radius: 5px;
-    }
-
-    .highlight-box h3 {
-        font-size: 1.2em;
-        margin-bottom: 10px;
-    }
-
-    .controls {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        padding: 20px;
-        background: rgba(255,255,255,0.1);
-    }
-
-    .btn {
-        background: white;
-        color: #667eea;
-        border: none;
-        padding: 12px 30px;
-        font-size: 1em;
-        border-radius: 25px;
-        cursor: pointer;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-
-    .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-        background: #667eea;
-        color: white;
-    }
-
-    .btn:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-
-    .slide-number {
-        color: white;
-        font-weight: 600;
-        font-size: 1.1em;
-    }
-
-    .title-slide {
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-    }
-
-    .title-slide .slide-title {
-        color: white;
-        font-size: 3em;
-        margin-bottom: 30px;
-    }
-
-    .title-slide .slide-subtitle {
-        color: rgba(255,255,255,0.9);
-        font-size: 1.5em;
-    }
-
-    .author-info {
-        margin-top: 40px;
-        font-size: 1.2em;
-        opacity: 0.9;
-    }
-
-    .two-column {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
-    }
-
-    .framework-box {
-        background: #f7fafc;
-        padding: 15px;
-        border-radius: 10px;
-        margin-bottom: 12px;
-        border-left: 4px solid #667eea;
-    }
-
-    .framework-box h4 {
-        color: #667eea;
-        margin-bottom: 8px;
-        font-size: 1.1em;
-    }
-
-    .framework-box p {
-        font-size: 0.9em;
-        line-height: 1.5;
-    }
-
-    .chart-container {
         width: 100%;
-        height: 300px;
-        margin: 20px 0;
-        background: white;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 1000;
     }
 
-    canvas {
-        max-height: 100%;
+    .heart {
+        position: absolute;
+        font-size: 2em;
+        animation: fall 3s linear;
+        opacity: 0;
+    }
+
+    @keyframes fall {
+        0% {
+            opacity: 1;
+            transform: translateY(-100px) rotate(0deg);
+        }
+        100% {
+            opacity: 0;
+            transform: translateY(100vh) rotate(360deg);
+        }
     }
 </style>
 ```
 
 </head>
 <body>
-    <div class="presentation-container">
-        <!-- Slide 1: Title -->
-        <div class="slide active title-slide">
-            <div>
-                <h1 class="slide-title">AI-Driven Judicial Process in India</h1>
-                <p class="slide-subtitle">Judicial Analysis & Application System (JAAS)</p>
-                <div class="author-info">
-                    <p><strong>Author:</strong> Rakunatha Khrishanth Manathra</p>
-                    <p>B.A., LL.B. (HONS.)</p>
-                    <p>Saveetha School of Law</p>
-                    <p style="margin-top: 20px;"><strong>Co-Author:</strong> Rini Adiyattil</p>
-                    <p>BBA, LL.B, LL.M - Associate Professor</p>
-                </div>
-            </div>
-        </div>
+    <div class="hearts" id="hearts"></div>
 
 ```
-    <!-- Slide 2: Crisis & Data Analysis -->
-    <div class="slide">
-        <div class="slide-header">
-            <h2 class="slide-title">The Judicial Crisis: Data Insights</h2>
-        </div>
-        <div class="slide-content">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">4 Crore</div>
-                    <div class="stat-label">Pending Cases</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">20 Years</div>
-                    <div class="stat-label">Average Delay</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">15:1M</div>
-                    <div class="stat-label">Judge-Population Ratio</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">60%</div>
-                    <div class="stat-label">Criminal Cases</div>
-                </div>
-            </div>
-            
-            <div class="two-column" style="margin-top: 15px;">
-                <div class="chart-container">
-                    <canvas id="pendencyChart"></canvas>
-                </div>
-                <div class="chart-container">
-                    <canvas id="caseTypeChart"></canvas>
-                </div>
-            </div>
+<div class="container">
+    <div id="question">
+        <h1>Sandhiya, would you like to be my Valentine? 💝</h1>
+        <div class="emoji">🌹</div>
+        <div class="buttons">
+            <button class="yes-btn" onclick="handleYes()">Yes! 💕</button>
+            <button class="no-btn" id="noBtn">No</button>
         </div>
     </div>
 
-    <!-- Slide 3: Key Findings -->
-    <div class="slide">
-        <div class="slide-header">
-            <h2 class="slide-title">Research Findings & Case Distribution</h2>
-        </div>
-        <div class="slide-content">
-            <div class="two-column">
-                <div>
-                    <div class="chart-container" style="height: 250px;">
-                        <canvas id="disposalTimeChart"></canvas>
-                    </div>
-                    <div class="highlight-box">
-                        <h3>Gender Disparity</h3>
-                        <ul class="bullet-list">
-                            <li>Male judges: 80%</li>
-                            <li>Female judges: 20%</li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <div class="chart-container" style="height: 250px;">
-                        <canvas id="judgesChart"></canvas>
-                    </div>
-                    <div class="highlight-box">
-                        <h3>ADR Success</h3>
-                        <ul class="bullet-list">
-                            <li>Lok Adalat: 50K → 70K cases</li>
-                            <li>Family cases: 80% disposal rate</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Slide 4: JAAS Solution -->
-    <div class="slide">
-        <div class="slide-header">
-            <h2 class="slide-title">JAAS: AI-Driven Solution</h2>
-            <p class="slide-subtitle">Judicial Analysis & Application System</p>
-        </div>
-        <div class="slide-content">
-            <div class="two-column">
-                <div>
-                    <div class="framework-box">
-                        <h4>Retrieval-Augmented Generation (RAG)</h4>
-                        <p>Combines AI with human oversight by retrieving relevant legal precedents and generating contextually informed recommendations.</p>
-                    </div>
-                    
-                    <div class="framework-box">
-                        <h4>Core Features</h4>
-                        <ul class="bullet-list">
-                            <li>Automates initial case assessments</li>
-                            <li>Human-led oversight & accountability</li>
-                            <li>Open-source transparency</li>
-                            <li>Minimizes human biases</li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <div class="chart-container" style="height: 280px;">
-                        <canvas id="impactChart"></canvas>
-                    </div>
-                    <div class="highlight-box">
-                        <h3>Objectives</h3>
-                        <p style="font-size: 0.85em;">Identify inefficiencies, propose AI solutions for civil cases, ensure compliance, and foster stakeholder acceptance.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Slide 5: Benefits & Implementation -->
-    <div class="slide">
-        <div class="slide-header">
-            <h2 class="slide-title">Benefits & Implementation Framework</h2>
-        </div>
-        <div class="slide-content">
-            <div class="two-column">
-                <div>
-                    <h3 style="color: #667eea; margin-bottom: 10px;">Key Benefits</h3>
-                    <div class="framework-box">
-                        <h4>Enhanced Efficiency</h4>
-                        <p>Automates routine tasks, predicts outcomes, allows judges to focus on complex analysis.</p>
-                    </div>
-                    <div class="framework-box">
-                        <h4>Reduced Biases</h4>
-                        <p>Impartial analysis based on legal merits, reducing discrimination.</p>
-                    </div>
-                    <div class="framework-box">
-                        <h4>Improved Access</h4>
-                        <p>Democratizes legal resources for marginalized communities.</p>
-                    </div>
-                </div>
-                <div>
-                    <h3 style="color: #667eea; margin-bottom: 10px;">Implementation</h3>
-                    <div class="framework-box">
-                        <h4>Legal Compliance</h4>
-                        <p>Align with existing laws and regulations.</p>
-                    </div>
-                    <div class="framework-box">
-                        <h4>Ethical Framework</h4>
-                        <p>Uphold transparency, accountability, equity.</p>
-                    </div>
-                    <div class="framework-box">
-                        <h4>Infrastructure Integration</h4>
-                        <p>Seamless integration without disruption.</p>
-                    </div>
-                    <div class="framework-box">
-                        <h4>Cultural Acceptance</h4>
-                        <p>Build trust through training and engagement.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Slide 6: Challenges -->
-    <div class="slide">
-        <div class="slide-header">
-            <h2 class="slide-title">Challenges & Ethical Considerations</h2>
-        </div>
-        <div class="slide-content">
-            <div class="two-column">
-                <div>
-                    <div class="chart-container" style="height: 250px;">
-                        <canvas id="vacanciesChart"></canvas>
-                    </div>
-                    <div class="highlight-box">
-                        <h3>Technical Challenges</h3>
-                        <ul class="bullet-list">
-                            <li>Data quality & bias-free datasets</li>
-                            <li>System transparency</li>
-                            <li>Scaling infrastructure</li>
-                            <li>Regular legal updates</li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <div class="chart-container" style="height: 250px;">
-                        <canvas id="cybercrimeChart"></canvas>
-                    </div>
-                    <div class="highlight-box">
-                        <h3>Ethical Concerns</h3>
-                        <ul class="bullet-list">
-                            <li>AI accountability mechanisms</li>
-                            <li>Human rights protection</li>
-                            <li>Job displacement concerns</li>
-                            <li>Judicial independence</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Slide 7: Conclusion -->
-    <div class="slide">
-        <div class="slide-header">
-            <h2 class="slide-title">Conclusion & Future Vision</h2>
-        </div>
-        <div class="slide-content">
-            <div class="two-column">
-                <div>
-                    <div class="chart-container" style="height: 220px;">
-                        <canvas id="resolutionChart"></canvas>
-                    </div>
-                    <div class="highlight-box">
-                        <h3>Immediate Benefits</h3>
-                        <ul class="bullet-list">
-                            <li>Reduced case backlog</li>
-                            <li>Faster justice delivery</li>
-                            <li>Consistent legal outcomes</li>
-                            <li>Enhanced accessibility</li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <div class="highlight-box">
-                        <h3>Long-term Impact</h3>
-                        <ul class="bullet-list">
-                            <li>Restored public confidence</li>
-                            <li>More equitable justice system</li>
-                            <li>Improved economic environment</li>
-                            <li>Model for developing nations</li>
-                        </ul>
-                    </div>
-                    <div class="highlight-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
-                        <h3 style="color: white;">Vision</h3>
-                        <p style="color: white; font-size: 0.9em;">Justice as a right accessible to all, leveraging technology while maintaining human compassion and oversight.</p>
-                    </div>
-                    <div style="text-align: center; margin-top: 15px; font-size: 1.1em; color: #667eea; font-weight: 600;">
-                        "Justice delayed is justice denied"
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Controls -->
-    <div class="controls">
-        <button class="btn" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
-        <span class="slide-number"><span id="currentSlide">1</span> / <span id="totalSlides">7</span></span>
-        <button class="btn" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+    <div class="celebration" id="celebration">
+        <h2>Yay Sandhiya! You made my day! 🎉</h2>
+        <div class="emoji">❤️</div>
+        <p style="font-size: 1.2em; color: #666; margin-top: 20px;">
+            I'm so happy! 💕✨
+        </p>
     </div>
 </div>
 
 <script>
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.slide');
-    const totalSlides = slides.length;
-    let charts = {};
+    const noBtn = document.getElementById('noBtn');
+    const container = document.querySelector('.container');
     
-    document.getElementById('totalSlides').textContent = totalSlides;
-    
-    function createCharts() {
-        // Case Pendency Chart
-        const ctxPendency = document.getElementById('pendencyChart');
-        if (ctxPendency) {
-            charts.pendency = new Chart(ctxPendency, {
-                type: 'line',
-                data: {
-                    labels: ['2018', '2019', '2020', '2021', '2022'],
-                    datasets: [{
-                        label: 'Pending Cases (Millions)',
-                        data: [3.0, 3.3, 3.5, 3.8, 4.0],
-                        borderColor: '#667eea',
-                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
-                        tension: 0.4,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: true, position: 'top' },
-                        title: { display: true, text: 'Case Pendency Over Years' }
-                    }
-                }
-            });
-        }
-
-        // Case Type Pie Chart
-        const ctxCaseType = document.getElementById('caseTypeChart');
-        if (ctxCaseType) {
-            charts.caseType = new Chart(ctxCaseType, {
-                type: 'pie',
-                data: {
-                    labels: ['Criminal Cases', 'Civil Cases'],
-                    datasets: [{
-                        data: [60, 40],
-                        backgroundColor: ['#667eea', '#764ba2']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: true, position: 'bottom' },
-                        title: { display: true, text: 'Case Distribution' }
-                    }
-                }
-            });
-        }
-
-        // Disposal Time Chart
-        const ctxDisposal = document.getElementById('disposalTimeChart');
-        if (ctxDisposal) {
-            charts.disposal = new Chart(ctxDisposal, {
-                type: 'bar',
-                data: {
-                    labels: ['Criminal', 'Property', 'Civil', 'Family'],
-                    datasets: [{
-                        label: 'Months',
-                        data: [18, 15, 12, 10],
-                        backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#4facfe']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        title: { display: true, text: 'Average Disposal Time' }
-                    },
-                    scales: {
-                        y: { beginAtZero: true, title: { display: true, text: 'Months' } }
-                    }
-                }
-            });
-        }
-
-        // Judges Distribution Chart
-        const ctxJudges = document.getElementById('judgesChart');
-        if (ctxJudges) {
-            charts.judges = new Chart(ctxJudges, {
-                type: 'bar',
-                data: {
-                    labels: ['District Courts', 'High Courts', 'Supreme Court'],
-                    datasets: [{
-                        label: 'Number of Judges',
-                        data: [3000, 1079, 34],
-                        backgroundColor: ['#667eea', '#764ba2', '#f093fb']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        title: { display: true, text: 'Judges by Court Level' }
-                    }
-                }
-            });
-        }
-
-        // Judicial Reform Impact Chart
-        const ctxImpact = document.getElementById('impactChart');
-        if (ctxImpact) {
-            charts.impact = new Chart(ctxImpact, {
-                type: 'line',
-                data: {
-                    labels: ['2018', '2019', '2020', '2021', '2022'],
-                    datasets: [{
-                        label: 'Case Resolution Rate (%)',
-                        data: [60, 65, 70, 75, 80],
-                        borderColor: '#4facfe',
-                        backgroundColor: 'rgba(79, 172, 254, 0.1)',
-                        tension: 0.4,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: true },
-                        title: { display: true, text: 'Impact of Judicial Reforms' }
-                    },
-                    scales: {
-                        y: { beginAtZero: true, max: 100 }
-                    }
-                }
-            });
-        }
-
-        // Judicial Vacancies Chart
-        const ctxVacancies = document.getElementById('vacanciesChart');
-        if (ctxVacancies) {
-            charts.vacancies = new Chart(ctxVacancies, {
-                type: 'line',
-                data: {
-                    labels: ['2018', '2019', '2020', '2021', '2022'],
-                    datasets: [{
-                        label: 'Judicial Vacancies',
-                        data: [400, 450, 500, 550, 600],
-                        borderColor: '#f093fb',
-                        backgroundColor: 'rgba(240, 147, 251, 0.1)',
-                        tension: 0.4,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: true },
-                        title: { display: true, text: 'Judicial Vacancies Over Time' }
-                    }
-                }
-            });
-        }
-
-        // Cybercrime Cases Chart
-        const ctxCybercrime = document.getElementById('cybercrimeChart');
-        if (ctxCybercrime) {
-            charts.cybercrime = new Chart(ctxCybercrime, {
-                type: 'line',
-                data: {
-                    labels: ['2018', '2019', '2020', '2021', '2022'],
-                    datasets: [{
-                        label: 'Cybercrime Cases',
-                        data: [5000, 7500, 10000, 12500, 15000],
-                        borderColor: '#764ba2',
-                        backgroundColor: 'rgba(118, 75, 162, 0.1)',
-                        tension: 0.4,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: true },
-                        title: { display: true, text: 'Trends in Cybercrime Cases' }
-                    }
-                }
-            });
-        }
-
-        // Case Resolution Methods Chart
-        const ctxResolution = document.getElementById('resolutionChart');
-        if (ctxResolution) {
-            charts.resolution = new Chart(ctxResolution, {
-                type: 'pie',
-                data: {
-                    labels: ['Litigation', 'Mediation', 'Lok Adalat', 'Arbitration'],
-                    datasets: [{
-                        data: [50, 30, 10, 10],
-                        backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#4facfe']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: true, position: 'bottom' },
-                        title: { display: true, text: 'Case Resolution Methods' }
-                    }
-                }
-            });
-        }
-    }
-    
-    function showSlide(n) {
-        slides[currentSlide].classList.remove('active');
-        currentSlide = (n + totalSlides) % totalSlides;
-        slides[currentSlide].classList.add('active');
+    // Function to move the No button away from cursor
+    noBtn.addEventListener('mousemove', (e) => {
+        const btnRect = noBtn.getBoundingClientRect();
+        const btnCenterX = btnRect.left + btnRect.width / 2;
+        const btnCenterY = btnRect.top + btnRect.height / 2;
         
-        document.getElementById('currentSlide').textContent = currentSlide + 1;
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
         
-        document.getElementById('prevBtn').disabled = currentSlide === 0;
-        document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
-    }
-    
-    function changeSlide(direction) {
-        showSlide(currentSlide + direction);
-    }
-    
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft' && currentSlide > 0) changeSlide(-1);
-        if (e.key === 'ArrowRight' && currentSlide < totalSlides - 1) changeSlide(1);
+        const distance = Math.sqrt(
+            Math.pow(mouseX - btnCenterX, 2) + 
+            Math.pow(mouseY - btnCenterY, 2)
+        );
+        
+        // If cursor is close to button, move it away
+        if (distance < 100) {
+            const containerRect = container.getBoundingClientRect();
+            
+            // Calculate direction away from cursor
+            const angle = Math.atan2(btnCenterY - mouseY, btnCenterX - mouseX);
+            
+            // Random distance to move
+            const moveDistance = 150 + Math.random() * 100;
+            
+            // Calculate new position
+            let newX = Math.cos(angle) * moveDistance;
+            let newY = Math.sin(angle) * moveDistance;
+            
+            // Keep button within container bounds
+            const maxX = (containerRect.width - btnRect.width) / 2 - 20;
+            const maxY = 100;
+            
+            newX = Math.max(-maxX, Math.min(maxX, newX));
+            newY = Math.max(-maxY, Math.min(maxY, newY));
+            
+            noBtn.style.transform = `translate(${newX}px, ${newY}px)`;
+        }
     });
-    
-    window.addEventListener('load', () => {
-        createCharts();
-        showSlide(0);
+
+    // Also move on touch for mobile
+    noBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        const containerRect = container.getBoundingClientRect();
+        const btnRect = noBtn.getBoundingClientRect();
+        
+        // Random position
+        const maxX = (containerRect.width - btnRect.width) / 2 - 20;
+        const maxY = 100;
+        
+        const newX = (Math.random() - 0.5) * maxX * 2;
+        const newY = (Math.random() - 0.5) * maxY * 2;
+        
+        noBtn.style.transform = `translate(${newX}px, ${newY}px)`;
     });
+
+    function handleYes() {
+        document.getElementById('question').style.display = 'none';
+        document.getElementById('celebration').style.display = 'block';
+        createHearts();
+    }
+
+    function createHearts() {
+        const heartsContainer = document.getElementById('hearts');
+        const heartSymbols = ['❤️', '💕', '💖', '💗', '💝', '💘'];
+        
+        for (let i = 0; i < 30; i++) {
+            setTimeout(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (2 + Math.random() * 2) + 's';
+                heartsContainer.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 3000);
+            }, i * 100);
+        }
+    }
 </script>
 ```
 
